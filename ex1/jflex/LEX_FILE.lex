@@ -56,6 +56,7 @@ import java_cup.runtime.*;
 	private Symbol symbol(int type)               {return new Symbol(type, yyline, yycolumn);}
 	private Symbol symbol(int type, Object value) {return new Symbol(type, yyline, yycolumn, value);}
 
+
 	/*******************************************/
 	/* Enable line number extraction from main */
 	/*******************************************/
@@ -70,10 +71,15 @@ import java_cup.runtime.*;
 /***********************/
 /* MACRO DECALARATIONS */
 /***********************/
-LineTerminator	= \r|\n|\r\n
-WhiteSpace		= {LineTerminator} | [ \t]
-INTEGER			= 0 | [1-9][0-9]*
-ID				= [a-z]+
+LINE_TERMINATOR	= \r|\n|\r\n
+WHITE_SPACE		= {LINE_TERMINATOR} | [ \t]
+DIGIT = [0-9]
+LETTER = [a-zA-Z]
+INTEGER			= 0 | [1-9]{DIGIT}*
+ID				= {LETTER}[a-zA-Z0-9]*
+TABLE_TWO = ({LETTER} | {DIGIT} | [\(\)\[\]\{\}] | [+\-*/.;?!])
+TYPE_ONE_COMMENT = \/\/({TABLE_TWO}|[ \t])*{LINE_TERMINATOR}
+TYPE_TWO_COMMENT = \/\*({TABLE_TWO}|{WHITE_SPACE})*\*\/
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -92,6 +98,21 @@ ID				= [a-z]+
 /**************************************************************/
 
 <YYINITIAL> {
+"class" 			{ return symbol(TokenNames.CLASS);}
+"nil" 				{ return symbol(TokenNames.NIL);}
+"array" 			{ return symbol(TokenNames.ARRAY);}
+"while" 			{ return symbol(TokenNames.WHILE);}
+"int" 				{ return symbol(TokenNames.TYPE_INT);}
+"void" 				{ return symbol(TokenNames.TYPE_VOID);}
+"extends" 			{ return symbol(TokenNames.EXTENDS);}
+"return" 			{ return symbol(TokenNames.RETURN);}
+"new" 				{ return symbol(TokenNames.NEW);}
+"if" 				{ return symbol(TokenNames.IF);}
+"string" 			{ return symbol(TokenNames.TYPE_STRING);}
+
+{WHITE_SPACE}		{ /* just skip what was found, do nothing */ }
+{TYPE_ONE_COMMENT}		{ /* just skip what was found, do nothing */ }
+{TYPE_TWO_COMMENT}		{ /* just skip what was found, do nothing */ }
 
 "+"					{ return symbol(TokenNames.PLUS);}
 "-"					{ return symbol(TokenNames.MINUS);}
@@ -101,6 +122,5 @@ ID				= [a-z]+
 ")"					{ return symbol(TokenNames.RPAREN);}
 {INTEGER}			{ return symbol(TokenNames.NUMBER, new Integer(yytext()));}
 {ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}   
-{WhiteSpace}		{ /* just skip what was found, do nothing */ }
 <<EOF>>				{ return symbol(TokenNames.EOF);}
 }
