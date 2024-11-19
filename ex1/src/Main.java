@@ -1,11 +1,10 @@
-   
+
 import java.io.*;
 import java.io.PrintWriter;
 
 import java_cup.runtime.Symbol;
-   
-public class Main
-{
+
+public class Main {
 	static public void main(String argv[])
 	{
 		Lexer l;
@@ -81,8 +80,7 @@ public class Main
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			print ERROR
 		}
 	}
 }
-
-

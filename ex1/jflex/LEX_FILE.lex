@@ -80,6 +80,11 @@ ID				= {LETTER}[a-zA-Z0-9]*
 TABLE_TWO = ({LETTER} | {DIGIT} | [\(\)\[\]\{\}] | [+\-*/.;?!])
 TYPE_ONE_COMMENT = \/\/({TABLE_TWO}|[ \t])*{LINE_TERMINATOR}
 TYPE_TWO_COMMENT = \/\*({TABLE_TWO}|{WHITE_SPACE})*\*\/
+STRING = \"{LETTER}*\"
+LEADING_ZERO = 0[0-9]+
+UNCLOSED_COMMENT  =  \/\*({TABLE_TWO}|{WHITE_SPACE})*
+ILLEGAL_COMMENT_ONE  = \/\/({TABLE_TWO}|[ \tֿ\",:=<>])*{LINE_TERMINATOR}
+ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -114,13 +119,42 @@ TYPE_TWO_COMMENT = \/\*({TABLE_TWO}|{WHITE_SPACE})*\*\/
 {TYPE_ONE_COMMENT}		{ /* just skip what was found, do nothing */ }
 {TYPE_TWO_COMMENT}		{ /* just skip what was found, do nothing */ }
 
+{LEADING_ZERO} {return symbol(TokenNames.ERROR);}
+{INTEGER}			
+{ 
+	try
+		{	
+			short num = new Short(yytext());
+			return symbol(TokenNames.INT, num);
+			}
+			catch(Exception e)
+			{
+				return symbol(TokenNames.ERROR);							
+			}
+		}
+	return symbol(TokenNames.INT, new Integer(yytext()));
+}
+
+{STRING}			{ return symbol(TokenNames.STRING, new String( yytext()));}
+{ID} 				{ return symbol(TokenNames.ID, new String( yytext()));}
+
 "+"					{ return symbol(TokenNames.PLUS);}
 "-"					{ return symbol(TokenNames.MINUS);}
-"PPP"				{ return symbol(TokenNames.TIMES);}
+":="				{ return symbol(TokenNames.ASSIGN);}
+"="					{ return symbol(TokenNames.EQ);}
+"<"					{ return symbol(TokenNames.LT);}
+">"					{ return symbol(TokenNames.GT);}
+"*"					{ return symbol(TokenNames.TIMES);}
 "/"					{ return symbol(TokenNames.DIVIDE);}
 "("					{ return symbol(TokenNames.LPAREN);}
 ")"					{ return symbol(TokenNames.RPAREN);}
-{INTEGER}			{ return symbol(TokenNames.NUMBER, new Integer(yytext()));}
-{ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}   
+"["					{ return symbol(TokenNames.LBRACK);}
+"]"					{ return symbol(TokenNames.RBRACK);}
+"{"					{ return symbol(TokenNames.LBRACE);}
+"}"					{ return symbol(TokenNames.RBRACE);}
+","					{ return symbol(TokenNames.COMMA);}
+"."					{ return symbol(TokenNames.DOT);}
+";"					{ return symbol(TokenNames.SEMICOLON);}
+
 <<EOF>>				{ return symbol(TokenNames.EOF);}
 }
