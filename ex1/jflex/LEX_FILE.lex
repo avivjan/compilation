@@ -135,7 +135,6 @@ ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 	{
 		return symbol(TokenNames.ERROR);							
 	}
-	return symbol(TokenNames.INT, Integer.valueOf(yytext()));
 }
 
 {STRING}			{ return symbol(TokenNames.STRING, new String( yytext()));}
