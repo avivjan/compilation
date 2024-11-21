@@ -82,6 +82,7 @@ TYPE_ONE_COMMENT = \/\/({TABLE_TWO}|[ \t])*{LINE_TERMINATOR}
 TYPE_TWO_COMMENT = \/\*({TABLE_TWO}|{WHITE_SPACE})*\*\/
 STRING = \"{LETTER}*\"
 LEADING_ZERO = 0[0-9]+
+UNCLOSED_COMMENT  =  \/\*({TABLE_TWO}|{WHITE_SPACE})*
 ILLEGAL_COMMENT_ONE  = \/\/({TABLE_TWO}|[ \tֿ\",:=<>])*{LINE_TERMINATOR}
 ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 
@@ -118,7 +119,6 @@ ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 {TYPE_ONE_COMMENT}		{ /* just skip what was found, do nothing */ }
 {TYPE_TWO_COMMENT}		{ /* just skip what was found, do nothing */ }
 
-{UNCLOSED_COMMENT}		{return symbol(TokenNames.ERROR);}
 {ILLEGAL_COMMENT_ONE} 	{return symbol(TokenNames.ERROR);}
 {ILLEGAL_COMMENT_TWO}	{return symbol(TokenNames.ERROR);}
 
