@@ -19,7 +19,6 @@ public class Main {
 			while (s.sym != TokenNames.EOF) {
 				if (symToString(s.sym).equals("ERROR")) {
 					str = new StringBuilder("ERROR\n");
-					str.append("[" + l.getLine() + "," + l.getTokenStartPosition() + "]\n");
 					break;
 				}
 				str.append(symToString(s.sym));
