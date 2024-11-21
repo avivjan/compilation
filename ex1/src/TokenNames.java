@@ -41,9 +41,7 @@ public interface TokenNames {
   public static final int STRING = 30; // string value
   public static final int ID = 31; // identifier
 
-  public static final int ERROR1 = 32; // error
-  public static final int ERROR2 = 33; // error
-  public static final int ERROR3 = 34; // error
+  public static final int ERROR = 32; // error
 
   // End of File
   public static final int EOF = 0; // End of file token

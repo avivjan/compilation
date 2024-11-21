@@ -77,7 +77,7 @@ DIGIT = [0-9]
 LETTER = [a-zA-Z]
 INTEGER			= 0 | [1-9]{DIGIT}*
 ID				= {LETTER}[a-zA-Z0-9]*
-TABLE_TWO = ({LETTER} | {DIGIT} | [\(\)\[\]\{\}] | [+\-\*/.;?!])
+TABLE_TWO = ({LETTER} | {DIGIT} | [\(\)\[\]\{\}] | [+\-*/.;?!])
 TYPE_ONE_COMMENT = \/\/({TABLE_TWO}|[ \t])*{LINE_TERMINATOR}
 TYPE_TWO_COMMENT = \/\*({TABLE_TWO}|{WHITE_SPACE})*\*\/
 STRING = \"{LETTER}*\"
@@ -119,11 +119,11 @@ ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 {TYPE_ONE_COMMENT}		{ /* just skip what was found, do nothing */ }
 {TYPE_TWO_COMMENT}		{ /* just skip what was found, do nothing */ }
 
-{UNCLOSED_COMMENT}		{return symbol(TokenNames.ERROR1);}
-{ILLEGAL_COMMENT_ONE} 	{return symbol(TokenNames.ERROR2);}
-{ILLEGAL_COMMENT_TWO}	{return symbol(TokenNames.ERROR3);}
+{UNCLOSED_COMMENT}		{return symbol(TokenNames.ERROR);}
+{ILLEGAL_COMMENT_ONE} 	{return symbol(TokenNames.ERROR);}
+{ILLEGAL_COMMENT_TWO}	{return symbol(TokenNames.ERROR);}
 
-{LEADING_ZERO} {return symbol(TokenNames.ERROR2);}
+{LEADING_ZERO} {return symbol(TokenNames.ERROR);}
 {INTEGER}			
 { 
 	try
@@ -133,7 +133,7 @@ ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 	}
 	catch(Exception e)
 	{
-		return symbol(TokenNames.ERROR1);							
+		return symbol(TokenNames.ERROR);							
 	}
 }
 
