@@ -123,7 +123,7 @@ ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 {ILLEGAL_COMMENT_ONE} 	{return symbol(TokenNames.ERROR2);}
 {ILLEGAL_COMMENT_TWO}	{return symbol(TokenNames.ERROR3);}
 
-{LEADING_ZERO} {return symbol(TokenNames.ERROR);}
+{LEADING_ZERO} {return symbol(TokenNames.ERROR2);}
 {INTEGER}			
 { 
 	try
@@ -133,7 +133,7 @@ ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 	}
 	catch(Exception e)
 	{
-		return symbol(TokenNames.ERROR);							
+		return symbol(TokenNames.ERROR1);							
 	}
 }
 
