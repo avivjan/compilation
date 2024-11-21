@@ -14,9 +14,8 @@ public class Main {
 		StringBuilder str = new StringBuilder();
 		try {
 			file_reader = new FileReader(inputFilename);
-			file_writer = new PrintWriter(outputFilename);
 			l = new Lexer(file_reader);
-			s = l.next_token();
+			s = l.next_token(); // first token
 			while (s.sym != TokenNames.EOF) {
 				if (symToString(s.sym).equals("ERROR")) {
 					str = new StringBuilder("ERROR\n");
@@ -29,13 +28,15 @@ public class Main {
 				str.append("[" + l.getLine() + "," + l.getTokenStartPosition() + "]\n");
 				s = l.next_token();
 			}
+
+			file_writer = new PrintWriter(outputFilename);
 			if (str.length() > 0) {
 				str.deleteCharAt(str.length() - 1);
-				System.out.println(str);
 				file_writer.print(str);
 			}
 			l.yyclose();
 			file_writer.close();
+			file_reader.close();
 		}
 
 		catch (Exception e) {
