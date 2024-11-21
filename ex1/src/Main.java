@@ -38,9 +38,7 @@ public class Main {
 			l.yyclose();
 			file_writer.close();
 			file_reader.close();
-		}
-
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
