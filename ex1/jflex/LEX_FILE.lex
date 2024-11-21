@@ -127,15 +127,14 @@ ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 {INTEGER}			
 { 
 	try
-		{	
-			short num = new Short(yytext());
-			return symbol(TokenNames.INT, num);
-			}
-			catch(Exception e)
-			{
-				return symbol(TokenNames.ERROR);							
-			}
-		}
+	{	
+		short num = new Short(yytext());
+		return symbol(TokenNames.INT, num);
+	}
+	catch(Exception e)
+	{
+		return symbol(TokenNames.ERROR);							
+	}
 	return symbol(TokenNames.INT, Integer.valueOf(yytext()));
 }
 
