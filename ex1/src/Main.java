@@ -6,7 +6,7 @@ import java_cup.runtime.Symbol;
 public class Main {
 	static public void main(String argv[]) {
 		Lexer l;
-		Symbol s;
+		com.sun.java_cup.internal.runtime.Symbol s;
 		FileReader file_reader;
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
@@ -17,9 +17,11 @@ public class Main {
 			l = new Lexer(file_reader);
 			s = l.next_token(); // first token
 			while (s.sym != TokenNames.EOF) {
-				if (symToString(s.sym).equals("ERROR")) {
+				if (symToString(s.sym).equals("ERROR1") || symToString(s.sym).equals("ERROR2")
+						|| symToString(s.sym).equals("ERROR3")) {
 					str = new StringBuilder("ERROR\n");
 					str.append("[" + l.getLine() + "," + l.getTokenStartPosition() + "]\n");
+					str.append(s.sym);
 					break;
 				}
 				str.append(symToString(s.sym));
@@ -110,7 +112,11 @@ public class Main {
 			case 31:
 				return "ID";
 			case 32:
-				return "ERROR";
+				return "ERROR1";
+			case 33:
+				return "ERROR2";
+			case 34:
+				return "ERROR3";
 			default:
 				return "UNKNOWN";
 		}
