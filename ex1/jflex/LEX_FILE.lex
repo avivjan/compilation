@@ -119,7 +119,7 @@ ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 
 {WHITE_SPACE}		{ /* just skip what was found, do nothing */ }
 {TYPE_ONE_COMMENT}		{ /* just skip what was found, do nothing */ }
-"/*" {yybegin(COMMENT)}
+"/*" {System.out.println("moving to comment state"); yybegin(COMMENT);}
 {ILLEGAL_COMMENT_ONE} 	{return symbol(TokenNames.ERROR);}
 
 {LEADING_ZERO} {return symbol(TokenNames.ERROR);}
@@ -163,11 +163,12 @@ ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 
 <COMMENT>
 {
-	"*/" {yybegin(YYINITIAL);}
+	"*/" {System.out.println("moving to init state"); yybegin(YYINITIAL);}
 	{TABLE_TWO} {}
 	"*" {}
 	"/" {}
 	{WHITE_SPACE} {}
 	. {return symbol(TokenNames.ERROR);}
+	<<EOF>>	 {return symbol(TokenNames.ERROR);}
 }
 
