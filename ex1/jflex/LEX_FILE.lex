@@ -82,7 +82,7 @@ TYPE_ONE_COMMENT = \/\/({TABLE_TWO}|[ \t*/])*{LINE_TERMINATOR}
 TYPE_TWO_COMMENT = \/\*({TABLE_TWO}|{WHITE_SPACE} | [*][^/] | [/])*\*\/
 STRING = \"{LETTER}*\"
 LEADING_ZERO = 0[0-9]+
-UNCLOSED_COMMENT = \/\*({TABLE_TWO}|{WHITE_SPACE} | [*^/] | [/])*[^*\/]
+UNCLOSED_COMMENT = \/\*(({TABLE_TWO}|{WHITE_SPACE}|[^*])|\*+[^/])*
 ILLEGAL_COMMENT_ONE  = \/\/({TABLE_TWO}|[ \tֿ\",:=<>])*{LINE_TERMINATOR}
 ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 
