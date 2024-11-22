@@ -22,7 +22,7 @@ import java_cup.runtime.*;
 /* The code will be written to the file Lexer.java.  */
 /*****************************************************/ 
 %class Lexer
-
+% state COMMENT
 /********************************************************************/
 /* The current line number can be accessed with the variable yyline */
 /* and the current column number with the variable yycolumn.        */
@@ -39,6 +39,8 @@ import java_cup.runtime.*;
 /* CUP compatibility mode interfaces with a CUP generated parser. */
 /******************************************************************/
 %cup
+
+
 
 /****************/
 /* DECLARATIONS */
@@ -82,7 +84,7 @@ TYPE_ONE_COMMENT = \/\/({TABLE_TWO}|[ \t*/])*{LINE_TERMINATOR}
 TYPE_TWO_COMMENT = /\*[{TABLE_TWO}|{WHITE_SPACE}]*\*+(?:[^/*][{TABLE_TWO}|{WHITE_SPACE}]*\*+)*/
 STRING = \"{LETTER}*\"
 LEADING_ZERO = 0[0-9]+
-UNCLOSED_COMMENT = /\*[{TABLE_TWO}|{WHITE_SPACE}]*\*+(?:[^/*][{TABLE_TWO}|{WHITE_SPACE}]*\*+)
+UNCLOSED_COMMENT = /\*[{TABLE_TWO}|{WHITE_SPACE}]*\*+(?:[^/*][{TABLE_TWO}|{WHITE_SPACE}]*/\*+)
 ILLEGAL_COMMENT_ONE  = \/\/({TABLE_TWO}|[ \tֿ\",:=<>])*{LINE_TERMINATOR}
 ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 
@@ -117,11 +119,8 @@ ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 
 {WHITE_SPACE}		{ /* just skip what was found, do nothing */ }
 {TYPE_ONE_COMMENT}		{ /* just skip what was found, do nothing */ }
-{TYPE_TWO_COMMENT}		{ /* just skip what was found, do nothing */ }
-
-{UNCLOSED_COMMENT}		{return symbol(TokenNames.CLASS);}
+"/*" {yybegin(COMMENT)}
 {ILLEGAL_COMMENT_ONE} 	{return symbol(TokenNames.ERROR);}
-{ILLEGAL_COMMENT_TWO}	{return symbol(TokenNames.ERROR);}
 
 {LEADING_ZERO} {return symbol(TokenNames.ERROR);}
 {INTEGER}			
@@ -160,5 +159,15 @@ ILLEGAL_COMMENT_TWO  = \/\*({TABLE_TWO}|{WHITE_SPACE}|[\",:=<>])*\*\/
 
 <<EOF>>				{ return symbol(TokenNames.EOF);}
 
+}
+
+<COMMENT>
+{
+	"*/" {yybegin(YYINITIAL);}
+	{TABLE_TWO} {}
+	"*" {}
+	"/" {}
+	{WHITE_SPACE} {}
+	. {return symbol(TokenNames.ERROR);}
 }
 
