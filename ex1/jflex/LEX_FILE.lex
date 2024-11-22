@@ -22,7 +22,7 @@ import java_cup.runtime.*;
 /* The code will be written to the file Lexer.java.  */
 /*****************************************************/ 
 %class Lexer
-% state COMMENT
+%state COMMENT
 /********************************************************************/
 /* The current line number can be accessed with the variable yyline */
 /* and the current column number with the variable yycolumn.        */
