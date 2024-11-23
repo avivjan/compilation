@@ -30,8 +30,8 @@ JFlex_FILE     = ${JFlex_DIR}/LEX_FILE.lex
 ########################
 # DEFINITIONS :: LEXER #
 ########################
-INPUT    = ${INPUT_DIR}/TEST_08_Strings.txt
-OUTPUT   = ${OUTPUT_DIR}/OUTPUT_TEST_08_Strings.txt
+INPUT    = ${INPUT_DIR}/TEST_09_Keyword_Strings.txt
+OUTPUT   = ${OUTPUT_DIR}/OUTPUT_TEST_09_Keyword_Strings.txt
 all:
 	clear
 	@echo "****************************"
