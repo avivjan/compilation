@@ -1,0 +1,3 @@
+STRING("int")[1,1]
+STRING("string")[2,1]
+STRING("class")[3,1]

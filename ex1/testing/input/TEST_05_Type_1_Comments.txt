@@ -1,0 +1,6 @@
+// type 1 comment
+// type 1 comment with all legal character types ()[]{}?!+-*/.;
+ident // and a type 1 comment
+// type 1 comment with a /* type 2 comment */ in it
+// type 1 comment with just /* in it
+// type 1 comment with just */ in it

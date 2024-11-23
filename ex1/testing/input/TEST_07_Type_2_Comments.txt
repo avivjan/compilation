@@ -1,0 +1,12 @@
+/* type 2 comment */
+/* type 2 comment with all legal character types ()[]{}?!+-/*.; */
+ident /* and a type 2 comment */
+/* type 2 comment and an */ ident2
+/* multiline
+   type
+   2
+   comment */
+/* ending type 2 comment with another */ thing */
+/** type * 2 * comment * with * a * lot * of * asterisks **/
+/**********/
+/* // type 2 comment with extra slashes // */

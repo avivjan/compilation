@@ -1,0 +1,14 @@
+ident Ident ident1 Ident2
+class nil array while int extends return new if string
+void // not in the reserved keyword table for some reason?
+( ) [ ] { }
++ - * /
+, . ;
+:= = < >
+// whitespace below
+
+
+
+
+
+                    ident
