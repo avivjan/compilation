@@ -83,7 +83,8 @@ TABLE_TWO = ({LETTER} | {DIGIT} | [\(\)\[\]\{\}] | [+\-.;?!*])
 TYPE_ONE_COMMENT = \/\/({TABLE_TWO}|[ \t*/])*{LINE_TERMINATOR}
 STRING = \"{LETTER}*\"
 LEADING_ZERO = 0[0-9]+
-ILLEGAL_COMMENT_ONE  = \/\/({TABLE_TWO}|[ \tֿ\",:=<>])*{LINE_TERMINATOR}
+ILLEGAL_COMMENT_ONE  = \/\/({TABLE_TWO}|{NOT_TABLE_TWO})*{LINE_TERMINATOR}
+NOT_TABLE_TWO     = [^\(\)\[\]\{\}a-zA-Z0-9+\-.;?!*]
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
