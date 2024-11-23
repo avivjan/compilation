@@ -32,7 +32,7 @@ public class Main {
 
 			file_writer = new PrintWriter(outputFilename);
 			if (str.length() > 0) {
-				str.deleteCharAt(str.length() - 1);
+				// str.deleteCharAt(str.length() - 1);
 				file_writer.print(str);
 			}
 			l.yyclose();
