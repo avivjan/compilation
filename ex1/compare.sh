@@ -21,37 +21,41 @@ if [ ! -f "$file2" ]; then
     exit 1
 fi
 
-# Compare files character by character
-diff_pos=0
+# Initialize line and character counters
+line_num=1
+char_pos=1
 identical=true
 
-exec 3<"$file1" 4<"$file2"
-
-while true; do
-    char1=$(dd bs=1 count=1 2>/dev/null <&3)
-    char2=$(dd bs=1 count=1 2>/dev/null <&4)
-    
-    # Check if both reached EOF
-    if [ -z "$char1" ] && [ -z "$char2" ]; then
-        break
+# Read files line by line
+while IFS= read -r line1 <&3 || IFS= read -r line2 <&4; do
+    # Check if lines are different in length or content
+    max_len=${#line1}
+    if [ ${#line2} -gt $max_len ]; then
+        max_len=${#line2}
     fi
 
-    # Check for mismatch
-    if [ "$char1" != "$char2" ]; then
-        echo "Files differ at position $diff_pos."
-        echo "File1: '$char1' | File2: '$char2'"
-        identical=false
-        break
-    fi
+    for ((i=0; i<max_len; i++)); do
+        char1="${line1:i:1}"
+        char2="${line2:i:1}"
 
-    # Increment position counter
-    ((diff_pos++))
-done
+        if [ "$char1" != "$char2" ]; then
+            char_pos=$((i + 1))
+            echo "Files differ at line $line_num, position $char_pos."
+            echo "File1: '$char1' | File2: '$char2'"
+            identical=false
+            break 2
+        fi
+    done
+
+    # Increment line number for the next line
+    ((line_num++))
+done 3<"$file1" 4<"$file2"
 
 # Close file descriptors
 exec 3<&-
 exec 4<&-
 
+# Final output
 if $identical; then
     echo "The files are identical."
 fi
