@@ -83,8 +83,9 @@ TABLE_TWO = ({LETTER} | {DIGIT} | [\(\)\[\]\{\}] | [+\-.;?!*])
 TYPE_ONE_COMMENT = \/\/({TABLE_TWO}|[ \t*/])*{LINE_TERMINATOR}
 STRING = \"{LETTER}*\"
 LEADING_ZERO = 0[0-9]+
-ILLEGAL_COMMENT_ONE  = \/\/({TABLE_TWO}|{NOT_TABLE_TWO})*{LINE_TERMINATOR}
 NOT_TABLE_TWO     = [^\(\)\[\]\{\}a-zA-Z0-9+\-.;?!*]
+ILLEGAL_COMMENT_ONE  = \/\/({TABLE_TWO}|{NOT_TABLE_TWO})*{LINE_TERMINATOR}
+UNCLOSED_STRING = \"{LETTER | [^"]}*
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -156,7 +157,6 @@ NOT_TABLE_TWO     = [^\(\)\[\]\{\}a-zA-Z0-9+\-.;?!*]
 ";"					{ return symbol(TokenNames.SEMICOLON);}
 
 <<EOF>>				{ return symbol(TokenNames.EOF);}
-
 }
 
 <COMMENT>
