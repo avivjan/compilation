@@ -32,6 +32,7 @@ JFlex_FILE     = ${JFlex_DIR}/LEX_FILE.lex
 ########################
 INPUT    = ${INPUT_DIR}/TEST_10_Integers.txt
 OUTPUT   = ${OUTPUT_DIR}/OUTPUT_TEST_10_Integers.txt
+all:
 	clear
 	@echo "****************************"
 	@echo "*                          *"
