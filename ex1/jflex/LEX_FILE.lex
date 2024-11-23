@@ -115,7 +115,8 @@ ILLEGAL_COMMENT_ONE  = \/\/({TABLE_TWO}|[ \tֿ\",:=<>])*{LINE_TERMINATOR}
 "string" 			{ return symbol(TokenNames.TYPE_STRING);}
 
 {WHITE_SPACE}		{ /* just skip what was found, do nothing */ }
-{TYPE_ONE_COMMENT}		{ /* just skip what was found, do nothing */ }
+{TYPE_ONE_COMMENT}	{ /* just skip what was found, do nothing */ }
+"/*" 				{yybegin(COMMENT);}
 {ILLEGAL_COMMENT_ONE} 	{return symbol(TokenNames.ERROR);}
 
 {LEADING_ZERO} {return symbol(TokenNames.ERROR);}
@@ -159,6 +160,7 @@ ILLEGAL_COMMENT_ONE  = \/\/({TABLE_TWO}|[ \tֿ\",:=<>])*{LINE_TERMINATOR}
 
 <COMMENT>
 {
+	"*/" {yybegin(YYINITIAL);}
 	{TABLE_TWO} {}
 	"*" {}
 	"/" {}
