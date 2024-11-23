@@ -85,7 +85,7 @@ STRING = \"{LETTER}*\"
 LEADING_ZERO = 0[0-9]+
 NOT_TABLE_TWO     = [^\(\)\[\]\{\}a-zA-Z0-9+\-.;?!*]
 ILLEGAL_COMMENT_ONE  = \/\/({TABLE_TWO}|{NOT_TABLE_TWO})*{LINE_TERMINATOR}
-UNCLOSED_STRING = \"{{LETTER} | [^"]}*
+UNCLOSED_STRING = \"[{LETTER} | [^"]]*
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
