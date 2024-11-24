@@ -155,7 +155,7 @@ UNCLOSED_STRING = \"{LETTER}*
 ";"					{ return symbol(TokenNames.SEMICOLON);}
 
 <<EOF>>				{ return symbol(TokenNames.EOF);}
-. 					return symbol(TokenNames.ERROR);	
+. 					{return symbol(TokenNames.ERROR);}
 }
 
 <TYPE_TWO_COMMENT_STATE>
