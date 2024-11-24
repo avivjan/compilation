@@ -23,7 +23,6 @@ import java_cup.runtime.*;
 /*****************************************************/ 
 %class Lexer
 %state TYPE_TWO_COMMENT_STATE
-%state TYPE_ONE_COMMENT_STATE
 /********************************************************************/
 /* The current line number can be accessed with the variable yyline */
 /* and the current column number with the variable yycolumn.        */
@@ -84,6 +83,8 @@ TABLE_TWO = ({LETTER} | {DIGIT} | [\(\)\[\]\{\}] | [+\-.;?!])
 STRING = \"{LETTER}*\"
 LEADING_ZERO = 0[0-9]+
 UNCLOSED_STRING = \"{LETTER}*
+TYPE_ONE_COMMENT = \/\/({TABLE_TWO} | [ /t\*\/])*{LINE_TERMINATOR}
+
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -170,16 +171,7 @@ UNCLOSED_STRING = \"{LETTER}*
 }
 
 
-<TYPE_ONE_COMMENT_STATE>
-{
-	{LINE_TERMINATOR} {yybegin(YYINITIAL);}
-	{TABLE_TWO} {}
-	"*" {}
-	"/" {}
-	" " {}
-	"/t" {}
-	. {return symbol(TokenNames.ERROR);}
-}
+
 
 
 
