@@ -153,7 +153,7 @@ LEADING_ZERO = 0[0-9]+
 ";"					{ return symbol(TokenNames.SEMICOLON);}
 
 <<EOF>>				{ return symbol(TokenNames.EOF);}
-(.|/n)* {return symbol(TokenNames.ERROR);}
+(.|\n)* {return symbol(TokenNames.ERROR);}
 }
 
 <TYPE_TWO_COMMENT_STATE>
