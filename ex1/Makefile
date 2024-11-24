@@ -5,8 +5,8 @@ BASEDIR           = $(shell pwd)
 JFlex_DIR         = ${BASEDIR}/jflex
 SRC_DIR           = ${BASEDIR}/src
 BIN_DIR           = ${BASEDIR}/bin
-INPUT_DIR         = ${BASEDIR}/testing/input
-OUTPUT_DIR        = ${BASEDIR}/testing/output
+INPUT_DIR         = ${BASEDIR}/input
+OUTPUT_DIR        = ${BASEDIR}/output
 EXTERNAL_JARS_DIR = ${BASEDIR}/external_jars
 MANIFEST_DIR      = ${BASEDIR}/manifest
 
@@ -30,9 +30,9 @@ JFlex_FILE     = ${JFlex_DIR}/LEX_FILE.lex
 ########################
 # DEFINITIONS :: LEXER #
 ########################
-TEST_NUM = 11
-INPUT    = ${INPUT_DIR}/TEST_ERROR_${TEST_NUM}.txt
-OUTPUT   = ${OUTPUT_DIR}/OUTPUT_TEST_ERROR_${TEST_NUM}.txt
+TEST_NUM = 03
+INPUT    = ${INPUT_DIR}/TEST_${TEST_NUM}.txt
+OUTPUT   = ${OUTPUT_DIR}/OUTPUT_TEST_${TEST_NUM}.txt
 all:
 	clear
 	@echo "****************************"
