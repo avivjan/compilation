@@ -31,8 +31,8 @@ JFlex_FILE     = ${JFlex_DIR}/LEX_FILE.lex
 # DEFINITIONS :: LEXER #
 ########################
 TEST_NUM = 05
-INPUT    = ${INPUT_DIR}/TEST_S.txt
-OUTPUT   = ${OUTPUT_DIR}/OUTPUT_TEST_S.txt
+INPUT    = ${INPUT_DIR}/TEST_C.txt
+OUTPUT   = ${OUTPUT_DIR}/OUTPUT_TEST_C.txt
 all:
 	clear
 	@echo "****************************"
