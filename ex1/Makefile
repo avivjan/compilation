@@ -30,7 +30,7 @@ JFlex_FILE     = ${JFlex_DIR}/LEX_FILE.lex
 ########################
 # DEFINITIONS :: LEXER #
 ########################
-TEST_NUM = 06
+TEST_NUM = 08
 INPUT    = ${INPUT_DIR}/TEST_${TEST_NUM}.txt
 OUTPUT   = ${OUTPUT_DIR}/OUTPUT_TEST_${TEST_NUM}.txt
 all:
