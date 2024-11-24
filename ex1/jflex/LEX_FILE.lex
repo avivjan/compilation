@@ -83,6 +83,7 @@ ID				= {LETTER}[a-zA-Z0-9]*
 TABLE_TWO = ({LETTER} | {DIGIT} | [\(\)\[\]\{\}] | [+\-.;?!])
 STRING = \"{LETTER}*\"
 LEADING_ZERO = 0[0-9]+
+UNCLOSED_STRING = \"{LETTER}*
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -132,6 +133,7 @@ LEADING_ZERO = 0[0-9]+
 }
 
 {STRING}			{ return symbol(TokenNames.STRING, new String( yytext()));}
+{UNCLOSED_STRING} 	{return symbol(TokenNames.ERROR);}
 {ID} 				{ return symbol(TokenNames.ID, new String( yytext()));}
 
 "+"					{ return symbol(TokenNames.PLUS);}
@@ -153,7 +155,7 @@ LEADING_ZERO = 0[0-9]+
 ";"					{ return symbol(TokenNames.SEMICOLON);}
 
 <<EOF>>				{ return symbol(TokenNames.EOF);}
-(.|\n)* {return symbol(TokenNames.ERROR);}
+. 					return symbol(TokenNames.ERROR);	
 }
 
 <TYPE_TWO_COMMENT_STATE>
