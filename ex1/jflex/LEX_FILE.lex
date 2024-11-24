@@ -116,9 +116,9 @@ TYPE_ONE_COMMENT = \/\/({TABLE_TWO} | [ /t\*\/])*{LINE_TERMINATOR}
 "string" 			{ return symbol(TokenNames.TYPE_STRING);}
 
 {WHITE_SPACE}		{ /* just skip what was found, do nothing */ }
-"//"				{yybegin(TYPE_ONE_COMMENT_STATE);}
 "/*" 				{yybegin(TYPE_TWO_COMMENT_STATE);}
 
+{TYPE_ONE_COMMENT} {}
 {LEADING_ZERO} {return symbol(TokenNames.ERROR);}
 {INTEGER}			
 { 
