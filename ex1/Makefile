@@ -5,8 +5,8 @@ BASEDIR           = $(shell pwd)
 JFlex_DIR         = ${BASEDIR}/jflex
 SRC_DIR           = ${BASEDIR}/src
 BIN_DIR           = ${BASEDIR}/bin
-INPUT_DIR         = ${BASEDIR}/input
-OUTPUT_DIR        = ${BASEDIR}/output
+INPUT_DIR         = ${BASEDIR}/testing/input
+OUTPUT_DIR        = ${BASEDIR}/testing/output
 EXTERNAL_JARS_DIR = ${BASEDIR}/external_jars
 MANIFEST_DIR      = ${BASEDIR}/manifest
 
