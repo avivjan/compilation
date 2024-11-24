@@ -22,7 +22,8 @@ import java_cup.runtime.*;
 /* The code will be written to the file Lexer.java.  */
 /*****************************************************/ 
 %class Lexer
-%state COMMENT
+%state TYPE_TWO_COMMENT_STATE
+%state TYPE_ONE_COMMENT_STATE
 /********************************************************************/
 /* The current line number can be accessed with the variable yyline */
 /* and the current column number with the variable yycolumn.        */
@@ -79,13 +80,9 @@ DIGIT = [0-9]
 LETTER = [a-zA-Z]
 INTEGER			= 0 | [1-9]{DIGIT}*
 ID				= {LETTER}[a-zA-Z0-9]*
-TABLE_TWO = ({LETTER} | {DIGIT} | [\(\)\[\]\{\}] | [+\-.;?!*])
-TYPE_ONE_COMMENT = \/\/({TABLE_TWO}|[ \t*/])*{LINE_TERMINATOR}
+TABLE_TWO = ({LETTER} | {DIGIT} | [\(\)\[\]\{\}] | [+\-.;?!])
 STRING = \"{LETTER}*\"
 LEADING_ZERO = 0[0-9]+
-NOT_TABLE_TWO     = [^\(\)\[\]\{\}a-zA-Z0-9+\-.;?!*]
-ILLEGAL_COMMENT_ONE  = \/\/({TABLE_TWO}|{NOT_TABLE_TWO})*{LINE_TERMINATOR}
-UNCLOSED_STRING = \"({LETTER}|[^\"])*
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -117,9 +114,8 @@ UNCLOSED_STRING = \"({LETTER}|[^\"])*
 "string" 			{ return symbol(TokenNames.TYPE_STRING);}
 
 {WHITE_SPACE}		{ /* just skip what was found, do nothing */ }
-{TYPE_ONE_COMMENT}	{ /* just skip what was found, do nothing */ }
-"/*" 				{yybegin(COMMENT);}
-{ILLEGAL_COMMENT_ONE} 	{return symbol(TokenNames.ERROR);}
+"//"				{yybegin(TYPE_ONE_COMMENT_STATE);}
+"/*" 				{yybegin(TYPE_TWO_COMMENT_STATE);}
 
 {LEADING_ZERO} {return symbol(TokenNames.ERROR);}
 {INTEGER}			
@@ -157,9 +153,10 @@ UNCLOSED_STRING = \"({LETTER}|[^\"])*
 ";"					{ return symbol(TokenNames.SEMICOLON);}
 
 <<EOF>>				{ return symbol(TokenNames.EOF);}
+(.|/n)* {return symbol(TokenNames.ERROR);}
 }
 
-<COMMENT>
+<TYPE_TWO_COMMENT_STATE>
 {
 	"*/" {yybegin(YYINITIAL);}
 	{TABLE_TWO} {}
@@ -169,4 +166,18 @@ UNCLOSED_STRING = \"({LETTER}|[^\"])*
 	. {return symbol(TokenNames.ERROR);}
 	<<EOF>>	 {return symbol(TokenNames.ERROR);}
 }
+
+
+<TYPE_ONE_COMMENT_STATE>
+{
+	{LINE_TERMINATOR} {yybegin(YYINITIAL);}
+	{TABLE_TWO} {}
+	"*" {}
+	"/" {}
+	" " {}
+	"/t" {}
+	. {return symbol(TokenNames.ERROR);}
+}
+
+
 
